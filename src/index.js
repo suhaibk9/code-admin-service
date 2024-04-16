@@ -4,7 +4,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const BaseError = require('./errors/Base.error');
 const apiRouter = require('./routes/index');
+const mongoose = require('mongoose');
 const errorHandler = require('./utils/errorHandler');
+const connectToDB = require('./config/db.config');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
@@ -13,6 +15,8 @@ app.get('/ping', (req, res) => {
 });
 app.use('/api', apiRouter);
 app.use(errorHandler);
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
+  await connectToDB();
+  console.log('Connected to DB');
 });
