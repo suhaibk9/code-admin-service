@@ -7,7 +7,7 @@ function sanitizeMarkdown(markdown) {
   console.log('Converted HTML: ', convertedHtml);
   //Sanitize the HTML
   const sanitizedHtml = sanitizeHtml(convertedHtml, {
-    allowedTags: sanitizeHtml.defaults.allowedTags,
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
   });
   console.log('Sanitized HTML: ', sanitizedHtml);
   const turndownService = new TurndownService();
