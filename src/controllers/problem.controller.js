@@ -50,21 +50,37 @@ async function getProblems(req, res, next) {
   }
 }
 //Update Problem
-function updateProblem(req, res, next) {
+async function updateProblem(req, res, next) {
   try {
-    throw new NotImplemented('updateProblem');
+    const updatedProblem = await problemService.updateProblem(
+      req.params.id,
+      req.body
+    );
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'Problem updated successfully',
+      data: updatedProblem,
+      error: {},
+    });
   } catch (err) {
     next(err);
   }
 }
 //Delete Problem
-function deleteProblem(req, res, next) {
+async function deleteProblem(req, res, next) {
   try {
-    throw new NotImplemented('deleteProblem');
+    const deletedProblem = await problemService.deleteProblem(req.params.id);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'Problem deleted successfully',
+      data: deletedProblem,
+      error: {},
+    });
   } catch (err) {
     next(err);
   }
 }
+
 module.exports = {
   pingProblemController,
   addProblem,

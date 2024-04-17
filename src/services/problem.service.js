@@ -5,7 +5,6 @@ class ProblemService {
   }
   async createProblem(problemData) {
     try {
-      console.log('Problem Data: ', problemData);
       //Sanitize the problem description
       problemData.description = markdownSanitizer(problemData.description);
       //add the problem to the database
@@ -32,6 +31,27 @@ class ProblemService {
   async getProblem(id) {
     try {
       const problem = await this.problemRepository.getProblem(id);
+      return problem;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+  async updateProblem(id, problemData) {
+    try {
+      const problem = await this.problemRepository.updateProblem(
+        id,
+        problemData
+      );
+      return problem;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+  async deleteProblem(id) {
+    try {
+      const problem = await this.problemRepository.deleteProblem(id);
       return problem;
     } catch (err) {
       console.log(err);
